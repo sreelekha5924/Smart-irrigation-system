@@ -1,71 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Smart Irrigation</title>
-<style>
-body{font-family:Arial;background:#e8f5e9;margin:0;padding:15px}
-.card{background:white;border-radius:15px;padding:18px;margin:12px 0;box-shadow:0 2px 8px #ccc}
-h1{text-align:center;color:#1b5e20}
-.btn{padding:12px 20px;border:none;border-radius:10px;font-size:16px;width:100%;margin:5px 0;cursor:pointer}
-.green{background:#2e7d32;color:white}.blue{background:#1565c0;color:white}.grey{background:#757575;color:white}
-.top{display:flex;justify-content:space-between;align-items:center}
-#langBtn{background:#ff9800;color:white;border:none;padding:8px 14px;border-radius:20px}
-</style>
-</head>
-<body>
-<div class="top"><b>🌱 Smart Irrigation</b><button id="langBtn" onclick="toggleLang()">Telugu</button></div>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Smart Irrigation</title><style>body{font-family:Arial;background:#e8f5e9;margin:0;padding:15px;text-align:center}h1{color:#1b5e20}.card{background:#fff;border-radius:12px;padding:15px;margin:12px auto;max-width:420px;box-shadow:0 2px 8px #ccc}button{padding:12px 20px;border:none;border-radius:8px;font-size:16px;margin:5px;cursor:pointer}.on{background:#2e7d32;color:#fff}.off{background:#c62828;color:#fff}.check{background:#1565c0;color:#fff}.lang{position:fixed;top:10px;right:10px;background:#fff;border:1px solid #999;padding:8px 12px;border-radius:20px}</style></head><body>
+<button class="lang" id="langBtn" onclick="toggleLang()">Telugu</button>
 <h1 id="title">Smart Irrigation System</h1>
-<p style="text-align:center" id="subtitle">Automatic Watering Using Soil Moisture</p>
-
-<div class="card"><h3 id="wTitle">🌦 Weather</h3><p id="wText">Hyderabad: 31°C, Sunny</p></div>
-<div class="card"><h3 id="sTitle">🌱 Soil Status</h3><h2 id="soilVal">WET - No Water Needed</h2><p id="soilDesc">Moisture: 78%</p><p id="mTitle">Motor: <span id="mLabel">Motor: </span>
-<div class="card">
-<button class="btn green" onclick="checkSoil()" id="checkBtn">Check Soil Now</button>
-<button class="btn blue" onclick="motorOn()" id="onBtn">Motor ON</button>
-<button class="btn grey" onclick="motorOff()" id="offBtn">Motor OFF</button>
-</div>
+<p id="sub">Based on Soil Moisture, Temperature and Humidity</p>
+<div class="card"><h3 id="wTitle">Weather - Hyderabad</h3><p id="wVal">31°C, Sunny</p></div>
+<div class="card"><h3 id="sTitle">Soil Status</h3><p id="soilVal">Wet - No Water Needed</p><p><span id="mLabel">Motor: </span><b id="motorVal">OFF</b></p><button class="on" id="onBtn" onclick="motorOn()">Motor ON</button><button class="off" id="offBtn" onclick="motorOff()">Motor OFF</button><br><button class="check" id="checkBtn" onclick="checkSoil()">Check Soil Now</button></div>
+<div class="card"><h3 id="lTitle">Live Values</h3><p>Soil Moisture: <b id="moist">65%</b></p><p>Temperature: <b id="temp">31°C</b></p><p>Humidity: <b id="hum">45%</b></p></div>
 <script>
 let telugu=false;
-let t={
-title:["Smart Irrigation System","స్మార్ట్ ఇరిగేషన్ సిస్టమ్"],
-subtitle:["Automatic Watering Using Soil Moisture","నేల తేమ ఆధారంగా ఆటోమేటిక్ నీరు"],
-wTitle:["🌦 Weather","🌦 వాతావరణం"],
-wText:["Hyderabad: 31°C, Sunny","హైదరాబాద్: 31°C, ఎండ"],
-sTitle:["🌱 Soil Status","🌱 నేల స్థితి"],
-checkBtn:["Check Soil Now","నేలను ఇప్పుడు చెక్ చేయండి"],
-onBtn:["Motor ON","మోటార్ ఆన్"],
-offBtn:["Motor OFF","మోటార్ ఆఫ్"],
-mTitle:["Motor: ","మోటార్: "]
-};
-function toggleLang(){
-telugu=!telugu;
-document.getElementById('title').innerText=t.title[telugu?1:0];
-document.getElementById('subtitle').innerText=t.subtitle[telugu?1:0];
-document.getElementById('wTitle').innerText=t.wTitle[telugu?1:0];
-document.getElementById('wText').innerText=t.wText[telugu?1:0];
-document.getElementById('sTitle').innerText=t.sTitle[telugu?1:0];
-document.getElementById('checkBtn').innerText=t.checkBtn[telugu?1:0];
-document.getElementById('onBtn').innerText=t.onBtn[telugu?1:0];
-document.getElementById('offBtn').innerText=t.offBtn[telugu?1:0];document.getElementById('mLabel').innerText=t.mTitle[telugu?1:0];
-document.getElementById('langBtn').innerText=telugu?"English":"Telugu";
-updateSoilText();
-}
-let wet=true;
-function updateSoilText(){
-if(wet){
-document.getElementById('soilVal').innerText=telugu?"తడి - నీరు అవసరం లేదు":"WET - No Water Needed";
-document.getElementById('soilDesc').innerText=telugu?"తేమ: 78%":"Moisture: 78%";
-document.getElementById('motorVal').innerText=telugu?"ఆఫ్":"OFF";
-}else{
-document.getElementById('soilVal').innerText=telugu?"పొడి - నీరు అవసరం":"DRY - Water Needed";
-document.getElementById('soilDesc').innerText=telugu?"తేమ: 25%":"Moisture: 25%";
-document.getElementById('motorVal').innerText=telugu?"ఆన్":"ON";
-}}
-function checkSoil(){wet=!wet;updateSoilText();}
-function motorOn(){wet=false;updateSoilText();}
-function motorOff(){wet=true;updateSoilText();}
-</script>
-</body>
-</html>
+let t={title:["Smart Irrigation System","స్మార్ట్ ఇరిగేషన్ సిస్టమ్"],sub:["Based on Soil Moisture, Temperature and Humidity","నేల తేమ, ఉష్ణోగ్రత మరియు తేమ ఆధారంగా"],wTitle:["Weather - Hyderabad","వాతావరణం - హైదరాబాద్"],sTitle:["Soil Status","నేల స్థితి"],mTitle:["Motor: ","మోటార్: "],onBtn:["Motor ON","మోటార్ ఆన్"],offBtn:["Motor OFF","మోటార్ ఆఫ్"],checkBtn:["Check Soil Now","నేలను ఇప్పుడు చెక్ చేయండి"],lTitle:["Live Values","ప్రత్యక్ష విలువలు"]};
+function toggleLang(){telugu=!telugu;document.getElementById('title').innerText=t.title[telugu?1:0];document.getElementById('sub').innerText=t.sub[telugu?1:0];document.getElementById('wTitle').innerText=t.wTitle[telugu?1:0];document.getElementById('sTitle').innerText=t.sTitle[telugu?1:0];document.getElementById('mLabel').innerText=t.mTitle[telugu?1:0];document.getElementById('onBtn').innerText=t.onBtn[telugu?1:0];document.getElementById('offBtn').innerText=t.offBtn[telugu?1:0];document.getElementById('checkBtn').innerText=t.checkBtn[telugu?1:0];document.getElementById('lTitle').innerText=t.lTitle[telugu?1:0];document.getElementById('langBtn').innerText=telugu?"English":"Telugu";updateSoil();}
+function updateSoil(){let m=parseInt(document.getElementById('moist').innerText);let s=document.getElementById('soilVal');if(m>50){s.innerText=telugu?"తడి - నీరు అవసరం లేదు":"Wet - No Water Needed";}else{s.innerText=telugu?"పొడి - నీరు అవసరం":"Dry - Water Needed";}}
+function motorOn(){document.getElementById('motorVal').innerText=telugu?"ఆన్":"ON";}
+function motorOff(){document.getElementById('motorVal').innerText=telugu?"ఆఫ్":"OFF";}
+function checkSoil(){let m=Math.floor(Math.random()*40)+40;document.getElementById('moist').innerText=m+"%";updateSoil();}
+</script></body></html>
