@@ -20,7 +20,7 @@ h1{text-align:center;color:#1b5e20}
 <p style="text-align:center" id="subtitle">Automatic Watering Using Soil Moisture</p>
 
 <div class="card"><h3 id="wTitle">🌦 Weather</h3><p id="wText">Hyderabad: 31°C, Sunny</p></div>
-<div class="card"><h3 id="sTitle">🌱 Soil Status</h3><h2 id="soilVal">WET - No Water Needed</h2><p id="soilDesc">Moisture: 78%</p><p id="mTitle">Motor: <b id="motorVal">OFF</b></p></div>
+<div class="card"><h3 id="sTitle">🌱 Soil Status</h3><h2 id="soilVal">WET - No Water Needed</h2><p id="soilDesc">Moisture: 78%</p><p id="mTitle">Motor: <span id="mLabel">Motor: </span>
 <div class="card">
 <button class="btn green" onclick="checkSoil()" id="checkBtn">Check Soil Now</button>
 <button class="btn blue" onclick="motorOn()" id="onBtn">Motor ON</button>
@@ -48,7 +48,7 @@ document.getElementById('wText').innerText=t.wText[telugu?1:0];
 document.getElementById('sTitle').innerText=t.sTitle[telugu?1:0];
 document.getElementById('checkBtn').innerText=t.checkBtn[telugu?1:0];
 document.getElementById('onBtn').innerText=t.onBtn[telugu?1:0];
-document.getElementById('offBtn').innerText=t.offBtn[telugu?1:0];
+document.getElementById('offBtn').innerText=t.offBtn[telugu?1:0];document.getElementById('mLabel').innerText=t.mTitle[telugu?1:0];
 document.getElementById('langBtn').innerText=telugu?"English":"Telugu";
 updateSoilText();
 }
