@@ -1,23 +1,36 @@
 <!DOCTYPE html>
-<html lang="te"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Smart Irrigation</title><style>body{font-family:Arial;background:#e8f5e9;margin:0;padding:15px;text-align:center}h1{color:#1b5e20}.card{background:#fff;border-radius:12px;padding:15px;margin:12px auto;max-width:420px;box-shadow:0 2px 8px #ccc}button{padding:12px 20px;border:none;border-radius:8px;font-size:16px;margin:5px;cursor:pointer}.on{background:#2e7d32;color:#fff}.off{background:#c62828;color:#fff}.check{background:#1565c0;color:#fff}.auto{background:#ff9800;color:#fff}.lang{position:fixed;top:10px;right:10px;background:#2e7d32;color:#fff;padding:10px 14px;border-radius:20px;font-weight:bold}.bar{background:#eee;height:18px;border-radius:10px;overflow:hidden}.fill{background:#2196f3;height:100%;width:80%}.rain{background:#ffebee;color:#c62828;padding:10px;border-radius:8px;font-weight:bold}</style></head><body>
+<html lang="te">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Smart Irrigation</title>
+<style>
+/* Main Page Design - Green Colour for Farming Theme */
+body{font-family:Arial;background:#e8f5e9;margin:0;padding:15px;text-align:center}
+h1{color:#1b5e20}
+.card{background:#fff;border-radius:12px;padding:15px;margin:12px auto;max-width:420px;box-shadow:0 2px 8px #ccc}
+button{padding:12px 20px;border:none;border-radius:8px;font-size:16px;margin:5px;cursor:pointer}
+.on{background:#2e7d32;color:#fff} /* Green Button for Motor ON */
+.off{background:#c62828;color:#fff} /* Red Button for Motor OFF */
+.check{background:#1565c0;color:#fff} /* Blue Button for Check Soil */
+.auto{background:#ff9800;color:#fff} /* Orange Button for Auto Mode */
+.lang{position:fixed;top:10px;right:10px;background:#2e7d32;color:#fff;padding:10px 14px;border-radius:20px;font-weight:bold}
+.bar{background:#eee;height:18px;border-radius:10px;overflow:hidden}
+.fill{background:#2196f3;height:100%;width:80%} /* Blue Water Tank Bar */
+.rain{background:#ffebee;color:#c62828;padding:10px;border-radius:8px;font-weight:bold}
+</style>
+</head>
+<body>
+
+<!-- Translate Button - For Farmers to change Telugu to English -->
 <button class="lang" id="langBtn" onclick="toggleLang()">🌾 English - Translate to English</button>
+
+<!-- Project Title -->
 <h1 id="title">స్మార్ట్ ఇరిగేషన్ సిస్టమ్</h1>
 <p id="sub">నేల తేమ, ఉష్ణోగ్రత మరియు తేమ ఆధారంగా</p>
-<div class="card"><h3 id="wTitle">వాతావరణం - హైదరాబాద్</h3><p id="wVal">31°C, ఎండ</p><p id="rainAlert" style="display:none" class="rain">🌧️ వర్షం వచ్చింది - మోటార్ ఆఫ్</p><button class="check" id="weatherBtn" onclick="toggleWeather()">వాతావరణం మార్చు</button></div>
-<div class="card"><h3 id="sTitle">నేల స్థితి</h3><p id="soilVal">తడి - నీరు అవసరం లేదు</p><p><span id="mLabel">మోటార్: </span><b id="motorVal">ఆఫ్</b></p><p><span id="aLabel">ఆటో మోడ్: </span><b id="autoVal">ఆఫ్</b></p><button class="on" id="onBtn" onclick="motorOn()">మోటార్ ఆన్</button><button class="off" id="offBtn" onclick="motorOff()">మోటార్ ఆఫ్</button><br><button class="auto" id="autoBtn" onclick="toggleAuto()">ఆటో మోడ్ ఆన్</button><br><button class="check" id="checkBtn" onclick="checkSoil()">నేలను ఇప్పుడు చెక్ చేయండి</button></div>
-<div class="card"><h3 id="tTitle">నీటి ట్యాంక్</h3><p><span id="tankLabel">ట్యాంక్ స్థాయి: </span><b id="tankVal">80%</b></p><div class="bar"><div class="fill" id="tankBar"></div></div><p id="tankMsg">ట్యాంక్ నిండుగా ఉంది</p></div>
-<div class="card"><h3 id="lTitle">ప్రత్యక్ష విలువలు</h3><p><span id="moLabel">నేల తేమ: </span><b id="moist">65%</b></p><p><span id="teLabel">ఉష్ణోగ్రత: </span><b id="temp">31°C</b></p><p><span id="huLabel">తేమ: </span><b id="hum">45%</b></p></div>
-<p style="color:#555;font-size:14px" id="farmerNote">🌾 రైతుల కోసం - తెలుగులో చూడవచ్చు | For Farmers - View in Telugu</p>
-<script>
-let telugu=true, autoMode=false, isRain=false, tank=80;
-let t={title:["Smart Irrigation System","స్మార్ట్ ఇరిగేషన్ సిస్టమ్"],sub:["Based on Soil Moisture, Temperature and Humidity","నేల తేమ, ఉష్ణోగ్రత మరియు తేమ ఆధారంగా"],wTitle:["Weather - Hyderabad","వాతావరణం - హైదరాబాద్"],sTitle:["Soil Status","నేల స్థితి"],mTitle:["Motor: ","మోటార్: "],aLabel:["Auto Mode: ","ఆటో మోడ్: "],onBtn:["Motor ON","మోటార్ ఆన్"],offBtn:["Motor OFF","మోటార్ ఆఫ్"],autoBtn:["Auto Mode ON","ఆటో మోడ్ ఆన్"],autoBtnOff:["Auto Mode OFF","ఆటో మోడ్ ఆఫ్"],checkBtn:["Check Soil Now","నేలను ఇప్పుడు చెక్ చేయండి"],lTitle:["Live Values","ప్రత్యక్ష విలువలు"],moLabel:["Soil Moisture: ","నేల తేమ: "],teLabel:["Temperature: ","ఉష్ణోగ్రత: "],huLabel:["Humidity: ","తేమ: "],tTitle:["Water Tank","నీటి ట్యాంక్"],tankLabel:["Tank Level: ","ట్యాంక్ స్థాయి: "],weatherBtn:["Change Weather","వాతావరణం మార్చు"],rainAlert:["🌧️ Rain Detected - Motor OFF","🌧️ వర్షం వచ్చింది - మోటార్ ఆఫ్"],tankFull:["Tank Full - Good","ట్యాంక్ నిండుగా ఉంది"],tankLow:["Tank Low - Refill Soon!","ట్యాంక్ తక్కువగా ఉంది - నింపండి!"],farmerNote:["🌾 For Farmers - View in Telugu | Translate to Telugu","🌾 రైతుల కోసం - తెలుగులో చూడవచ్చు | For Farmers - View in Telugu"]};
-function toggleLang(){telugu=!telugu;for(let k in t){let el=document.getElementById(k);if(el&&k!="autoBtn"&&k!="tankFull"&&k!="tankLow"&&k!="rainAlert")el.innerText=t[k][telugu?1:0];}document.getElementById('autoBtn').innerText=autoMode?t.autoBtnOff[telugu?1:0]:t.autoBtn[telugu?1:0];document.getElementById('langBtn').innerText=telugu?"🌾 English - Translate to English":"🌾 తెలుగు - Translate to Telugu for Farmers";updateSoil();updateTank();updateWeatherUI();}
-function toggleAuto(){autoMode=!autoMode;document.getElementById('autoVal').innerText=autoMode?(telugu?"ఆన్":"ON"):(telugu?"ఆఫ్":"OFF");document.getElementById('autoBtn').innerText=autoMode?t.autoBtnOff[telugu?1:0]:t.autoBtn[telugu?1:0];if(autoMode)updateSoil();}
-function toggleWeather(){isRain=!isRain;updateWeatherUI();updateSoil();}
-function updateWeatherUI(){document.getElementById('wVal').innerText=isRain?(telugu?"25°C, వర్షం":"25°C, Rainy"):(telugu?"31°C, ఎండ":"31°C, Sunny");document.getElementById('rainAlert').innerText=t.rainAlert[telugu?1:0];document.getElementById('rainAlert').style.display=isRain?"block":"none";}
-function updateTank(){document.getElementById('tankVal').innerText=tank+"%";document.getElementById('tankBar').style.width=tank+"%";document.getElementById('tankMsg').innerText=tank<30?t.tankLow[telugu?1:0]:t.tankFull[telugu?1:0];}
-function updateSoil(){let m=parseInt(document.getElementById('moist').innerText);let s=document.getElementById('soilVal');let mv=document.getElementById('motorVal');if(isRain){s.innerText=telugu?"వర్షం - నీరు అవసరం లేదు":"Rain - No Water Needed";mv.innerText=telugu?"ఆఫ్":"OFF";return;}if(m>40){s.innerText=telugu?"తడి - నీరు అవసరం లేదు":"Wet - No Water Needed";if(autoMode)mv.innerText=telugu?"ఆఫ్":"OFF";}else{s.innerText=telugu?"పొడి - నీరు అవసరం":"Dry - Water Needed";if(autoMode)mv.innerText=telugu?"ఆన్":"ON";}}
-function motorOn(){if(isRain){alert(telugu?"వర్షం వస్తుంది! మోటార్ ఆన్ చేయలేము":"Rain! Cannot ON Motor");return;}document.getElementById('motorVal').innerText=telugu?"ఆన్":"ON";if(tank>0)tank-=5;updateTank();}
-function motorOff(){document.getElementById('motorVal').innerText=telugu?"ఆఫ్":"OFF";}
-function checkSoil(){let m=Math.floor(Math.random()*40)+40;document.getElementById('moist').innerText=m+"%";if(document.getElementById('motorVal').innerText=="ON"||document.getElementById('motorVal').innerText=="ఆన్"){if(tank>0)tank-=5;updateTank();}updateSoil();}
-</script></body></html>
+
+<!-- 1. WEATHER CARD - Shows Hyderabad Weather -->
+<div class="card">
+<h3 id="wTitle">వాతావరణం - హైదరాబాద్</h3>
+<p id="wVal">31°C, ఎండ</p>
+<!--
